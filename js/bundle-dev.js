@@ -15,7 +15,7 @@
     }
 
     let currentLang = determineLanguage();
-
+    
     // מצב פנימי
     let fontSizePct = 100;
     let ttsActive = false;
@@ -25,8 +25,8 @@
     let availableVoices = [];
     const originalFontSizes = new Map();
 
-    function loadVoices() {
-        availableVoices = speechSynth.getVoices();
+    function loadVoices() { 
+        availableVoices = speechSynth.getVoices(); 
         if (availableVoices.length > 0) console.log(`📢 Voices loaded: ${availableVoices.length}`);
     }
     if (speechSynth.onvoiceschanged !== undefined) { speechSynth.onvoiceschanged = loadVoices; }
@@ -79,7 +79,7 @@
             </div>
             <div id="ali-headings-list"></div>
         `;
-
+        
         modal.style.direction = t.dir;
         modal.style.textAlign = t.dir === 'rtl' ? 'right' : 'left';
         overlay.appendChild(modal);
@@ -97,8 +97,8 @@
             link.innerText = h.innerText;
             link.className = 'ali-head-link';
             const level = parseInt(h.tagName.substring(1));
-            link.style.paddingInlineStart = (level * 15) + 'px';
-            link.style.fontSize = (18 - level) + 'px';
+            link.style.paddingInlineStart = (level * 15) + 'px'; 
+            link.style.fontSize = (18 - level) + 'px'; 
 
             link.onclick = () => {
                 h.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -108,7 +108,7 @@
                 setTimeout(() => h.style.outline = '', 2000);
                 overlay.remove();
             };
-
+            
             listContainer.appendChild(link);
             count++;
         });
@@ -138,7 +138,7 @@
         .ali-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .ali-option { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 10px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px; transition: 0.2s; color: #333; user-select: none; }
         .ali-option:hover { background: #e9ecef; border-color: #0d6efd; }
-        .ali-option.active { background: #0d6efd; color: white; border-color: #0d6efd; font-weight: bold; }
+        .ali-option.active { background: #0d6efd; color: white; border-color: #0d6efd; font-weight: bold; } 
         .ali-icon { font-size: 16px; min-width: 20px; text-align: center; }
         .ali-reset { grid-column: span 2; margin-top: 10px; background: #fff0f0; color: #dc3545; border: 1px solid #ffcccc; justify-content: center; }
         .ali-reset:hover { background: #ffe6e6; }
@@ -154,7 +154,7 @@
         body.ali-no-anim *, body.ali-no-anim *:before, body.ali-no-anim *:after { animation: none !important; transition: none !important; transform: none !important; }
         body.ali-touch a, body.ali-touch button, body.ali-touch input, body.ali-touch select { padding: 12px !important; margin: 4px !important; min-height: 44px !important; min-width: 44px !important; }
         body.ali-hide-images img, body.ali-hide-images svg, body.ali-hide-images video, body.ali-hide-images canvas { opacity: 0 !important; visibility: hidden !important; }
-        body.ali-hide-images * { background-image: none !important; }
+        body.ali-hide-images * { background-image: none !important; } 
         .ali-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2147483647; display: flex; justify-content: center; align-items: center; }
         .ali-modal-content { background: white; padding: 20px; border-radius: 12px; width: 85%; max-width: 500px; max-height: 70vh; overflow-y: auto; color: #333; font-family: 'Segoe UI', Arial, sans-serif; box-shadow: 0 10px 40px rgba(0,0,0,0.5); border: 1px solid #ccc; }
         .ali-head-link { display: block; padding: 8px 12px; border-bottom: 1px solid #eee; cursor: pointer; transition: 0.2s; border-radius: 4px; }
@@ -166,7 +166,7 @@
         const isRTL = t.dir === 'rtl';
         const btnPos = isRTL ? 'left: 20px' : 'right: 20px';
         const align = isRTL ? 'right' : 'left';
-
+        
         const container = document.getElementById("ali-access-wrapper");
         container.innerHTML = `
             <div id="ali-access-btn" role="button" aria-label="${t.title}" style="${btnPos}"><svg viewBox="0 0 24 24"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg></div>
@@ -221,7 +221,7 @@
         document.getElementById("ali-lang-btn").onclick = (e) => { e.stopPropagation(); isLangMenuOpen = !isLangMenuOpen; render(); };
         document.querySelectorAll(".ali-lang-option").forEach(opt => { opt.onclick = () => { localStorage.setItem('ali_access_lang', opt.getAttribute("data-lang")); location.reload(); }; });
         document.querySelectorAll(".ali-option").forEach(opt => { opt.onclick = () => handleAction(opt.getAttribute("data-action"), opt); });
-
+        
         document.addEventListener('keydown', (e) => {
             if (e.altKey && e.key === '9') { isMenuOpen = !isMenuOpen; render(); }
         });
@@ -243,7 +243,7 @@
             const state = JSON.parse(saved);
             if (state.fontSizePct && state.fontSizePct !== 100) {
                 fontSizePct = state.fontSizePct;
-                setTimeout(updateTextSize, 100);
+                setTimeout(updateTextSize, 100); 
             }
             if (state.bodyClasses) state.bodyClasses.forEach(cls => document.body.classList.add(cls));
             if (state.htmlClasses) state.htmlClasses.forEach(cls => document.documentElement.classList.add(cls));
@@ -251,7 +251,7 @@
     }
 
     function updateTextSize() {
-        const selectors = 'p, span, h1, h2, h3, h4, h5, h6, li, a, td, th, blockquote, div, input, button, textarea, select, label';
+        const selectors = 'p, span, h1, h2, h3, h4, h5, h6, li, a, td, th, blockquote, div, input, button, textarea, select, label'; 
         const elements = document.querySelectorAll(selectors);
         elements.forEach(el => {
             if (el.closest('#ali-access-wrapper') || el.classList.contains('fa') || el.classList.contains('material-icons')) return;
@@ -262,20 +262,20 @@
     }
 
     function handleAction(action, btnElement) {
-        const toggleState = (cls) => {
-            const isActive = document.body.classList.toggle(cls);
-            btnElement.classList.toggle("active");
+        const toggleState = (cls) => { 
+            const isActive = document.body.classList.toggle(cls); 
+            btnElement.classList.toggle("active"); 
             btnElement.setAttribute("aria-pressed", isActive);
         };
-        const toggleHtml = (cls) => {
-            const isActive = document.documentElement.classList.toggle(cls);
+        const toggleHtml = (cls) => { 
+            const isActive = document.documentElement.classList.toggle(cls); 
             btnElement.classList.toggle("active");
             btnElement.setAttribute("aria-pressed", isActive);
         };
 
         if (action === "contrast") toggleHtml("ali-contrast");
         if (action === "grayscale") toggleHtml("ali-grayscale");
-
+        
         if (action === "links") toggleState("ali-links");
         if (action === "readable") toggleState("ali-font");
         if (action === "cursor") toggleState("ali-cursor");
@@ -283,37 +283,37 @@
         if (action === "touch-mode") toggleState("ali-touch");
         if (action === "reading-guide") toggleState("ali-guide");
         if (action === "hide-images") toggleState("ali-hide-images");
-
+        
         if (action === "headings-map") {
             toggleHeadingsModal();
             if (ttsActive) speakText(translations[currentLang].headingsMap);
-            return;
+            return; 
         }
 
         if (action === "font-plus") { fontSizePct += 10; updateTextSize(); }
         if (action === "font-minus") { fontSizePct = Math.max(70, fontSizePct - 10); updateTextSize(); }
-
-        if (action === "stop-anim") {
-            document.body.classList.toggle("ali-no-anim");
+        
+        if (action === "stop-anim") { 
+            document.body.classList.toggle("ali-no-anim"); 
             btnElement.classList.toggle("active");
             btnElement.setAttribute("aria-pressed", document.body.classList.contains("ali-no-anim"));
-            const shouldPause = document.body.classList.contains("ali-no-anim");
-            document.querySelectorAll('video, audio').forEach(v => shouldPause ? v.pause() : v.play());
+            const shouldPause = document.body.classList.contains("ali-no-anim"); 
+            document.querySelectorAll('video, audio').forEach(v => shouldPause ? v.pause() : v.play()); 
         }
 
         if (action === "tts") {
             ttsActive = !ttsActive;
             btnElement.classList.toggle("active");
             btnElement.setAttribute("aria-pressed", ttsActive);
-
-            if (ttsActive) {
-                document.addEventListener('mouseover', speakHandler);
+            
+            if (ttsActive) { 
+                document.addEventListener('mouseover', speakHandler); 
                 document.addEventListener('focusin', speakHandler);
-            } else {
-                document.removeEventListener('mouseover', speakHandler);
+            } else { 
+                document.removeEventListener('mouseover', speakHandler); 
                 document.removeEventListener('focusin', speakHandler);
-                speechSynth.cancel();
-                document.querySelectorAll('.ali-speaking').forEach(el => el.classList.remove('ali-speaking'));
+                speechSynth.cancel(); 
+                document.querySelectorAll('.ali-speaking').forEach(el => el.classList.remove('ali-speaking')); 
             }
         }
 
@@ -377,21 +377,21 @@
     }
 
     function detectLanguageFromText(text) {
-        if (/[\u0590-\u05FF]/.test(text)) return 'he';
-        if (/[\u0600-\u06FF]/.test(text)) return 'ar';
+        if (/[\u0590-\u05FF]/.test(text)) return 'he'; 
+        if (/[\u0600-\u06FF]/.test(text)) return 'ar'; 
         if (/[\u0400-\u04FF]/.test(text)) return 'ru'; // Russian check
-        return 'en';
+        return 'en'; 
     }
 
     function getBestVoice(langCode) {
         if (!availableVoices.length) availableVoices = speechSynth.getVoices();
-
+        
         let voice = availableVoices.find(v => v.lang.startsWith(langCode));
-
+        
         // V4 Logic for Russian/Arabic
         if (!voice && langCode === 'ru') voice = availableVoices.find(v => v.name.includes("Russian") || v.name.includes("русский"));
         if (!voice && langCode === 'ar') voice = availableVoices.find(v => v.name.includes("Arabic") || v.name.includes("العربية"));
-
+        
         return voice;
     }
 
